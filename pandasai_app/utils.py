@@ -1,7 +1,7 @@
 import re
 from io import BytesIO
 from typing import Any, Dict, List
-from pandasai import PandasAI
+from pandasai import SmartDatalake
 from pandasai.llm.openai import OpenAI
 import pandas as pd
 import streamlit as st
@@ -15,7 +15,7 @@ def clear_submit():
     st.session_state["submit"] = False
 
 
-def run_pandasai_openaiapi(df, prompt, verbose=False):
+def run_pandasai_openaiapi(dfs, prompt, verbose=False):
     """
     A function to run the Query on given Pandas Dataframe
     Args:
@@ -28,9 +28,8 @@ def run_pandasai_openaiapi(df, prompt, verbose=False):
     """
 
     llm = OpenAI(api_token=st.session_state.get("OPENAI_API_KEY"))
-    pandas_ai = PandasAI(llm, verbose=verbose)
-    response = pandas_ai.run(df, prompt=prompt)
-
+    dfs = SmartDatalake(dfs, config={"llm": llm, "verbose": verbose, "enable_cache": False})
+    response = dfs.chat(prompt)
     return response
 
 

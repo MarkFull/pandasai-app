@@ -18,8 +18,9 @@ if __name__ == '__main__':
     sidebar()
 
     # Upload the File
-    uploaded_file = st.file_uploader(
+    uploaded_files = st.file_uploader(
         "Upload a csv file",
+        accept_multiple_files=True,
         type=["csv"],
         help="CSV Files are supported as of now!",
         on_change=clear_submit,
@@ -27,13 +28,17 @@ if __name__ == '__main__':
 
     index = None
     doc = None
-    if uploaded_file is not None:
-        if uploaded_file.name.endswith(".csv"):
-            df = parse_csv(uploaded_file)
-            index = True
-        else:
-            raise ValueError("File type not supported!")
-        # text = text_to_docs(doc)
+    dfs = []
+
+    # for each file uploaded, parse it and add it to the list of dataframes
+    for uploaded_file in uploaded_files:
+        if uploaded_file is not None:
+            if uploaded_file.name.endswith(".csv"):
+                df = parse_csv(uploaded_file)
+                dfs.append(df)
+                index = True
+            else:
+                raise ValueError("File type not supported!")
 
     query = st.text_area("Ask a question about the dataframe/csv uploaded", on_change=clear_submit)
     with st.expander("Advanced Options"):
@@ -56,7 +61,7 @@ if __name__ == '__main__':
             query_col, answer_col = st.columns(2)
             # sources = search_docs(index, query)
             try:
-                answer = run_pandasai_openaiapi(df=df, prompt=query, verbose=False)
+                answer = run_pandasai_openaiapi(dfs=dfs, prompt=query, verbose=True)
 
                 with query_col:
                     st.markdown("#### Query")
