@@ -1,5 +1,5 @@
 import streamlit as st
-
+import os
 from pandasai_app.components.faq import faq
 
 
@@ -14,18 +14,19 @@ def sidebar():
     with st.sidebar:
         st.markdown(
             "## How to use\n"
-            "1. Enter your [OpenAI API key](https://platform.openai.com/account/api-keys) below🔑\n"  # noqa: E501
-            "2. Upload a csv file with data📄\n"
-            "3. A csv file is read as Pandas Dataframe📄\n"
-            "4. Ask a question about to make dataframe conversational💬\n"
+            "1. Upload one or more csv files with data\n"
+            "2. CSV files are read as Pandas Dataframe\n"
+            "3. Ask a question about to make dataframe conversational\n"
         )
-        api_key_input = st.text_input(
-            "OpenAI API Key",
-            type="password",
-            placeholder="Paste your OpenAI API key here (sk-...)",
-            help="You can get your API key from https://platform.openai.com/account/api-keys.",  # noqa: E501
-            value=st.session_state.get("OPENAI_API_KEY", ""),
-        )
+        # api_key_input = st.text_input(
+        #     "OpenAI API Key",
+        #     type="password",
+        #     placeholder="Paste your OpenAI API key here (sk-...)",
+        #     help="You can get your API key from https://platform.openai.com/account/api-keys.",  # noqa: E501
+        #     value=st.session_state.get("OPENAI_API_KEY", ""),
+        # )
+
+        api_key_input = os.environ.get('OPENAI_API_KEY')
 
         if api_key_input:
             print(f'Entered API is {api_key_input}')
