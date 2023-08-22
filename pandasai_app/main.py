@@ -4,18 +4,24 @@ import sys
 import os
 sys.path.append(os.path.abspath('.'))
 
-from pandasai_app.components.sidebar import sidebar
+from pandasai_app.components.sidebar import set_openai_api_key
 from pandasai_app.utils import parse_csv, run_pandasai_openaiapi, clear_submit
 
 if __name__ == '__main__':
 
     st.set_page_config(
-        page_title="PANDASAI APP: Generative AI with Pandas",
+        page_title="Generative AI with LLM",
         page_icon="📖",
         layout="wide",
         initial_sidebar_state="expanded",)
-    st.header("📖 Pandasai App")
-    sidebar()
+    st.header("📖 AI App")
+    # sidebar()
+    api_key_input = os.environ.get('OPENAI_API_KEY')
+
+    if api_key_input:
+        print(f'Entered API is {api_key_input}')
+        set_openai_api_key(api_key_input)
+
 
     # Upload the File
     uploaded_files = st.file_uploader(
