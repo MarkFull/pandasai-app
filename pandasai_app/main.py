@@ -61,7 +61,8 @@ if __name__ == '__main__':
             query_col, answer_col = st.columns(2)
             # sources = search_docs(index, query)
             try:
-                answer = run_pandasai_openaiapi(dfs=dfs, prompt=query, verbose=True)
+                with st.spinner("Thinking..."):
+                    answer = run_pandasai_openaiapi(dfs=dfs, prompt=query, verbose=True)
 
                 with query_col:
                     st.markdown("#### Query")
