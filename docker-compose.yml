@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 services:
   pandasai-app:
     image: pandasai-app
@@ -8,3 +8,5 @@ services:
       - ./pandasai_app/:/app/pandasai_app
     ports:
       - 8501:8501
+    environment:
+      - OPENAI_API_KEY
