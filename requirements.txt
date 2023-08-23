@@ -1,3 +1,2 @@
 streamlit == 1.22.0
-pandasai == 1.0.4
 bs4
