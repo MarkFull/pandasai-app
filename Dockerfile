@@ -16,6 +16,7 @@ WORKDIR app/
 
 COPY ./pandasai_app /app/pandasai_app
 COPY ./pandasai /app/pandasai
+COPY ./exports /app/exports
 COPY ./.streamlit /app/.streamlit
 
 CMD ["streamlit", "run", "pandasai_app/main.py"]
