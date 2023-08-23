@@ -1,7 +1,7 @@
 import re
 from io import BytesIO
 from typing import Any, Dict, List
-from pandasai import SmartDatalake
+from pandasai.smart_datalake import SmartDatalake
 from pandasai.llm.openai import OpenAI
 import pandas as pd
 import streamlit as st
