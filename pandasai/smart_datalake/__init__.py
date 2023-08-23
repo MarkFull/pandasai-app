@@ -40,7 +40,7 @@ from ..middlewares.base import Middleware
 from ..helpers.df_info import DataFrameType, polars_imported
 from ..helpers.path import find_project_root
 
-
+import streamlit as st
 class SmartDatalake:
     _dfs: List[DataFrameType]
     _config: Config
@@ -381,6 +381,8 @@ class SmartDatalake:
                 logger=self._logger,
             )
         elif result["type"] == "plot":
+            st.image(result["value"])
+            return "Here is the chart"
             import matplotlib.pyplot as plt
             import matplotlib.image as mpimg
 
