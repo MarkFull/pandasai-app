@@ -15,6 +15,7 @@ RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
 WORKDIR app/
 
 COPY ./pandasai_app /app/pandasai_app
+COPY ./pandasai /app/pandasai
 COPY ./.streamlit /app/.streamlit
 
 CMD ["streamlit", "run", "pandasai_app/main.py"]
